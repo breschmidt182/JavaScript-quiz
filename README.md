@@ -18,3 +18,4 @@ THEN I can save my initials and score
 
 # URL
 http://127.0.0.1:5500/index.html
+https://breschmidt182.github.io/JavaScript-quiz/
