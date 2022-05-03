@@ -1,60 +1,20 @@
-var questionBank= [
-    {question1:"What is the DOM?", 
-     answers: [ 
-         "a script file", 
-         "an image file",
-         "a style sheet",
-         "Document Object Model"
-        ],
-     correctAnswer:"Document Object Modal"
-    },
-    
-    {question2:"Commonly used data types DO NOT include:", 
-     answers: [
-         "strings",
-         "booleans",
-         "alerts",
-         "numbers",
-        ],
-     correctAnswer:"booleans"
-    }, 
-    
-    {question2:"The conditionin an if/else statement is enclosed with ______.", 
-     answers: [
-         "parenthesis",
-         "square brackets",
-         "quotes",
-         "curly brackets",
-        ],
-     correctAnswer:"parenthesis"
-    }, 
-    
- {question3:"Arrays in JavaScript can be used to store ______.", 
-      answers: [
-          "numbers and strings",
-          "other arrays",
-          "booleans",
-          "all of the above",
-        ],
-      correctAnswer:"all of the above"
-    }, 
-    
-{question4:"String values must be enclosed within ___ when being  assigned to variables.", 
-    answers: [
-        "commas",
-        "quotes",
-        "curly brackets",
-        "parenthesis",
-    ],
-  correctAnswer:"curly brackets"
-},
-    
-{question5:"A very useful too used during development and debugging for printing content to the debugger is:", 
-  answers: [
-      "for loops",
-      "JavaSript",
-      "terminal/bash",
-      "console.log",
-    ],
- correctAnswer:"for loops"
-}]
+# User Story
+AS A coding boot camp student
+I WANT to take a timed quiz on JavaScript fundamentals that stores high scores
+SO THAT I can gauge my progress compared to my peers
+
+# Acceptance Criteria
+GIVEN I am taking a code quiz
+WHEN I click the start button
+THEN a timer starts and I am presented with a question
+WHEN I answer a question
+THEN I am presented with another question
+WHEN I answer a question incorrectly
+THEN time is subtracted from the clock
+WHEN all questions are answered or the timer reaches 0
+THEN the game is over
+WHEN the game is over
+THEN I can save my initials and score
+
+# URL
+http://127.0.0.1:5500/index.html

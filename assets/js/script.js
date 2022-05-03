@@ -82,8 +82,8 @@ function endQuiz() {
     var response = document.querySelector("#score-response");
     var userEntry = document.getElementById('score-save');
     response.innerHTML= "Game over, You scored: " + correctCount + ". Enter Your Initials";
-    userEntry.insertAdjacentHTML("afterbegin", "<input type = 'text' name = 'userInit' placeholder= 'Enter initials here' />")
-    userEntry.insertAdjacentHTML("beforehand", "<button onclick = 'highScoreHandler()'>Save</button>")
+    userEntry.insertAdjacentHTML("afterBegin", "<input type = 'text' name = 'userInit' placeholder= 'Enter initials here' />")
+    userEntry.insertAdjacentHTML("beforeBegin", "<button onclick = 'highScoreHandler()'>Save</button>")
 }
 
 function updateTime() {
@@ -99,32 +99,33 @@ function renderQuestion() {
         updateTime();
         return;
     }
-}
 
-interValId = setInterval(updateTime, 1000);
+    interValId = setInterval(updateTime, 1000);
 
-questionE1.textContent = questions[questionIndex].question1;
+ questionE1.textContent = questions[questionIndex].question1;
 
-answersE1.innerHTML ="";
-results.innerHTML ="";
+ answersE1.innerHTML ="";
+ results.innerHTML ="";
 
-var choices = questions[questionIndex].choices;
-var choicesLength = choices.length; 
+ var choices = questions[questionIndex].choices;
+ var choicesLength = choices.length; 
 
-for (var i=0; i < choicesLength; i++) {
-    var questionLi = document.createElement("li");
-    questionLi.className = "question-options";
-    var questionButton = document.createElement("button");
-    questionButton.className = "options";
-    questionButton.textContent = choices[i];
+ for (var i=0; i < choicesLength; i++) {
+     var questionLi = document.createElement("li");
+     questionLi.className = "question-options";
+     var questionButton = document.createElement("button");
+     questionButton.className = "options";
+     questionButton.textContent = choices[i];
 
-    questionLi.append(questionButton);
-    answersE1.append(questionLi);
+     questionLi.append(questionButton);
+     answersE1.append(questionLi);
+     console.log("answers show up")
+    }
 }
 
 function nextQuestion() {
     questionIndex++;
-    if (questionIndex===questions.length) {
+    if (questionIndex === questions.length) {
         time = 0;
     }
     renderQuestion();
