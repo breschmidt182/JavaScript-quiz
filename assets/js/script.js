@@ -10,68 +10,75 @@ var correctCount = 0;
 
 var scores = [];
 
+var count = 0;
 var time = 60;
 var interValId;
 
 var questions = [
-        {question1:"What is the DOM?", 
-         answers: [ 
-             "a script file", 
-             "an image file",
-             "a style sheet",
-             "Document Object Model"
-            ],
-         correctAnswer:"Document Object Modal"
-        },
-        
-        {question2:"Commonly used data types DO NOT include:", 
-         answers: [
-             "strings",
-             "booleans",
-             "alerts",
-             "numbers",
-            ],
-         correctAnswer:"booleans"
-        }, 
-        
-        {question2:"The conditionin an if/else statement is enclosed with ______.", 
-         answers: [
-             "parenthesis",
-             "square brackets",
-             "quotes",
-             "curly brackets",
-            ],
-         correctAnswer:"parenthesis"
-        }, 
-        
-     {question3:"Arrays in JavaScript can be used to store ______.", 
-          answers: [
-              "numbers and strings",
-              "other arrays",
-              "booleans",
-              "all of the above",
-            ],
-          correctAnswer:"all of the above"
-        }, 
-        
-    {question4:"String values must be enclosed within ___ when being  assigned to variables.", 
+    {
+        question: "What is the DOM?",
+        answers: [
+            "a script file",
+            "an image file",
+            "a style sheet",
+            "Document Object Model"
+        ],
+        correctAnswer: "Document Object Model"
+    },
+
+    {
+        question: "Commonly used data types DO NOT include:",
+        answers: [
+            "strings",
+            "booleans",
+            "alerts",
+            "numbers",
+        ],
+        correctAnswer: "booleans"
+    },
+
+    {
+        question: "The conditionin an if/else statement is enclosed with ______.",
+        answers: [
+            "parenthesis",
+            "square brackets",
+            "quotes",
+            "curly brackets",
+        ],
+        correctAnswer: "parenthesis"
+    },
+
+    {
+        question: "Arrays in JavaScript can be used to store ______.",
+        answers: [
+            "numbers and strings",
+            "other arrays",
+            "booleans",
+            "all of the above",
+        ],
+        correctAnswer: "all of the above"
+    },
+
+    {
+        question: "String values must be enclosed within ___ when being  assigned to variables.",
         answers: [
             "commas",
             "quotes",
             "curly brackets",
             "parenthesis",
         ],
-      correctAnswer:"curly brackets"
+        correctAnswer: "curly brackets"
     },
-        
-    {question5:"A very useful too used during development and debugging for printing content to the debugger is:", 
-      answers: [
-          "for loops",
-          "JavaSript",
-          "terminal/bash",
-          "console.log",
+
+    {
+        question: "A very useful too used during development and debugging for printing content to the debugger is:",
+        answers: [
+            "for loops",
+            "JavaSript",
+            "terminal/bash",
+            "console.log",
         ],
-     correctAnswer:"for loops"
+        correctAnswer: "for loops"
     }
 ];
 
@@ -81,74 +88,86 @@ function endQuiz() {
     body.innerHTML = "<div class= 'response' ><h1 id='score-response' class='score-response'></h1><form id='score-save'></form></div>"
     var response = document.querySelector("#score-response");
     var userEntry = document.getElementById('score-save');
-    response.innerHTML= "Game over, You scored: " + correctCount + ". Enter Your Initials";
+    response.innerHTML = "Game over, You scored: " + correctCount + ". Enter Your Initials";
     userEntry.insertAdjacentHTML("afterBegin", "<input type = 'text' name = 'userInit' placeholder= 'Enter initials here' />")
     userEntry.insertAdjacentHTML("beforeBegin", "<button onclick = 'highScoreHandler()'>Save</button>")
 }
 
 function updateTime() {
+    console.log("1 second has passed")
     time--;
-    timerE1.textContent ="Time: " + time;
-    if (time <=0) {
+    timerE1.textContent = "Time: " + time;
+    if (time <= 0) {
         endQuiz();
     }
 }
 
 function renderQuestion() {
-    if (time==0) {
+    console.log(count)
+    if (time == 0) {
         updateTime();
         return;
     }
+    questionE1.textContent = questions[count].question;
 
-    interValId = setInterval(updateTime, 1000);
+    answersE1.innerHTML = "";
+    results.innerHTML = "";
 
- questionE1.textContent = questions[questionIndex].question1;
+    //  var choices = questions[questionIndex].choices;
+    //  var choicesLength = questions.length; 
 
- answersE1.innerHTML ="";
- results.innerHTML ="";
+    for (var i = 0; i < questions[count].answers.length; i++) {
+        var questionLi = document.createElement("li");
+        questionLi.className = "question-options";
+        var questionButton = document.createElement("button");
+        questionButton.className = "options";
+        questionButton.textContent = questions[count].answers[i];
 
- var choices = questions[questionIndex].choices;
- var choicesLength = choices.length; 
-
- for (var i=0; i < choicesLength; i++) {
-     var questionLi = document.createElement("li");
-     questionLi.className = "question-options";
-     var questionButton = document.createElement("button");
-     questionButton.className = "options";
-     questionButton.textContent = choices[i];
-
-     questionLi.append(questionButton);
-     answersE1.append(questionLi);
-     console.log("answers show up")
+        questionLi.append(questionButton);
+        answersE1.append(questionLi);
+        console.log("answers show up")
     }
+    count++;
 }
 
 function nextQuestion() {
     questionIndex++;
     if (questionIndex === questions.length) {
         time = 0;
+        return;
     }
     renderQuestion();
 }
 
 function checkAns(event) {
-    clearInterval(interValId);
+    var questionResultE1 = document.querySelector("#results");
+    var pE1 = document.createElement("p");
+    // clearInterval(interValId);
+    console.log(event.target)
     if (event.target.matches("button")) {
-        var answer = event.target.textContent;
-        if (answer === questions[questionIndex].answer) {
-            questionResultE1.textContent = "Correct";
+        console.log("test")
+        console.log(questions[0].correctAnswer)
+        console.log(event.target.innerHTML)
+        // var answer = event.target.textContent;
+        if (event.target.innerHTML === questions[0].correctAnswer) {
+            pE1.textContent = "Correct";
             correctCount++;
-        }else {
-            questionResultE1.textContent = "Incorrect";
+        } else {
+            pE1.textContent = "Incorrect";
             time = time - 5;
-            timerE1.textContent = time;
+            // timerE1.textContent = time;
         }
+        questionResultE1.appendChild(pE1);
+        setTimeout(() => {
+            questionResultE1.innerHTML = "";
+        }, 2000)
     }
-    setTimeout(nextQuestion, 5000);
+    nextQuestion();
 }
 
 function startQuiz() {
     introE1.remove();
+    interValId = setInterval(updateTime, 1000);
     renderQuestion();
     answersE1.addEventListener("click", checkAns);
 }
@@ -156,16 +175,17 @@ function startQuiz() {
 function highScoreHandler() {
     event.preventDefault();
     var userInput = document.querySelector("input[name='userInit']").ariaValueMax;
-    if(!userInput) {
+    if (!userInput) {
         alert("You need to fill out your initials!");
         return false;
-    }else {
+    } else {
         var highScoreObj = {
             name: userInput,
-            score: correctCount};
-            creatHighScoreLs(highScoreObj);
-            alert("name & score saved!");
-        }
+            score: correctCount
+        };
+        creatHighScoreLs(highScoreObj);
+        alert("name & score saved!");
+    }
 }
 
 function createHighScoreLs(highScoreObj) {
@@ -179,7 +199,7 @@ function saveScores() {
     localStorage.setItem("scores", JSON.stringify(scores));
 }
 
-function loadScores () {
+function loadScores() {
     var savedScore = localStorage.getItem("scores");
     if (!savedScores) {
         scores = [];
@@ -187,7 +207,7 @@ function loadScores () {
     }
 
     saveScores = JSON.parse(savedScores);
-    for(var i=0; i<savedScores.length; i++){
+    for (var i = 0; i < savedScores.length; i++) {
         createHighScoreLs(savedScores[i]);
     }
 }
